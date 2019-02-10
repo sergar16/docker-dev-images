@@ -35,10 +35,9 @@ RUN npm install -g concurrently
 RUN ls -lt
 # Bundle app source
 RUN adduser -S -h /home/term -s /bin/bash term
-RUN echo 'root:root' | chpasswd
+RUN echo 'term:term' | chpasswd
 RUN mkdir /home/term/.ssh
-COPY id_rsa /home/term/.ssh/id_rsa
-RUN chmod 600 /home/term/.ssh/id_rsa && chown -Rf term /home/term/.ssh
+
 #Check versions
 RUN node -v
 RUN npm -v
@@ -48,3 +47,5 @@ RUN mkdir ~/.ssh
 RUN ssh-keyscan -H wetty-ssh >> ~/.ssh/known_hosts
 
 EXPOSE 3000
+
+ENTRYPOINT ["node"]
